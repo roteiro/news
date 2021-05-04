@@ -1,5 +1,17 @@
 # Nextcloud News app
 
+## About this fork
+This fork enables you to use the awesome [Nextcloud News App](https://github.com/nextcloud/news) with 32-bit hardware/software (e.g. NextCloudPi). 
+32-bit support was removed from the original Nexctloud News App with Release 16.0.0. This fork restores 32-bit compability, since my system is still running on 32-bit software and a lot of systems out there have the same requirements.
+
+Use this fork at your own risk and only if you know what you are doing!
+
+Installation of the app needs to be done manually, detailed instructions will follow.
+The idea was taken from [PR #1337](https://github.com/nextcloud/news/pull/1337). A detailed discussion on the reasoning for removing 32-bit support from the original app can be found [here](https://github.com/nextcloud/news/issues/1423).
+
+The remainder of this README is identical to the README of the original News app.
+**********************************************************************************
+
 **We need help with the frontend, check the issue tracker if you are interested!**
 
 ![Release status](https://github.com/nextcloud/news/workflows/Build%20and%20publish%20app%20release/badge.svg) ![Integration Tests](https://github.com/nextcloud/news/workflows/Integration%20Tests/badge.svg) ![Frontend tests](https://github.com/nextcloud/news/workflows/Frontend%20tests/badge.svg) [![Code coverage](https://img.shields.io/codecov/c/github/nextcloud/news.svg?style=flat)](https://codecov.io/gh/nextcloud/news/)
