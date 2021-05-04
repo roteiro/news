@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
     <id>news</id>
-    <name>News</name>
+    <name>News32</name>
     <summary>An RSS/Atom feed reader</summary>
     <description><![CDATA[📰 A RSS/Atom Feed reader App for Nextcloud
 
@@ -43,7 +43,7 @@ Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
     <screenshot small-thumbnail="https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2-small.png">https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2.png</screenshot>
     <screenshot small-thumbnail="https://raw.githubusercontent.com/nextcloud/news/master/screenshots/3-small.png">https://raw.githubusercontent.com/nextcloud/news/master/screenshots/3.png</screenshot>
     <dependencies>
-        <php min-version="7.2" min-int-size="64"/>
+        <php min-version="7.2" />
         <database min-version="10">pgsql</database>
         <database>sqlite</database>
         <database min-version="8.0">mysql</database>

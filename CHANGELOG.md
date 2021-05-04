@@ -55,7 +55,7 @@ Note: Nextcloud 20 support will be dropped in Oct 2021, this is very likely the 
 There are no additional changes compared to the latest beta.
 
 ### Changed
-- News now requires a 64bit OS
+- News now requires a 64bit OS ~ Reverted in this fork ~
 - v2 API implementation (folder part)
 - Implemented sharing news items between nextcloud users (#1191)
 - Updated the news items table in DB to include sharer data (#1191)
@@ -92,33 +92,6 @@ There are no additional changes compared to the latest beta.
   - /api/v1-2/user/avatar
   - ./occ news:updater:all-feeds
 
-### Fixed
-- allow calling `/items?getRead=false` without a feed/folder (#1380 #1356)
-- newestId does not return newest ID but last updated (#1339)
-
-## [15.4.5] - 2021-05-26
-### Fixed
-- newestId does not return newest ID but last updated (#1339)
-
-## [16.0.0-beta1] - 2021-05-22
-### Changed
-- News now requires a 64bit OS
-- v2 API implementation (folder part)
-- Implemented sharing news items between nextcloud users (#1191)
-- Updated the news items table in DB to include sharer data (#1191)
-- Added route for sharing news items (#1191)
-- Added share data in news items serialization (#1191)
-- Added tests for the news items share feature (#1191)
-- Added sharing articles with nextcloud users (#1217)
-- Added sharing articles on social media (Facebook, Twitter) or mail (#1217)
-
-## [15.4.4] - 2021-05-21
-### Fixed
-- allow calling `/items?getRead=false` without a feed/folder
-
-## [15.4.3] - 2021-05-05
-### Fixed
-- mitigate 32-bit issues by using `float` instead of `int` for microseconds (#1320)
 
 ## [15.4.2] - 2021-05-03
 ### Fixed
