@@ -45,9 +45,13 @@ source_build_directory:=$(CURDIR)/build/source/$(app_name)
 source_artifact_directory:=$(CURDIR)/build/artifacts/source
 source_package_name:=$(source_artifact_directory)/$(app_name)
 appstore_build_directory:=$(CURDIR)/build/appstore/$(app_name)
+no_appstore_build_directory:=$(CURDIR)/build/no_appstore/$(app_name)
 appstore_artifact_directory:=$(CURDIR)/build/artifacts/appstore
+no_appstore_artifact_directory:=$(CURDIR)/build/artifacts/no_appstore
 appstore_package_name:=$(appstore_artifact_directory)/$(app_name)
+no_appstore_package_name:=$(no_appstore_artifact_directory)/$(app_name)
 appstore_sign_dir=$(appstore_build_directory)/sign
+no_appstore_unsigned_dir=$(no_appstore_build_directory)/unsigned
 cert_dir=$(HOME)/.nextcloud/certificates
 npm:=$(shell which npm 2> /dev/null)
 composer:=$(shell which composer 2> /dev/null)
@@ -188,6 +192,59 @@ appstore:
 	fi
 	mkdir -p $(appstore_artifact_directory)
 	tar -czf $(appstore_package_name).tar.gz -C $(appstore_sign_dir) $(app_name)
+
+
+# Builds the source package for the manual installation, ignores php and js tests
+.PHONY: no_appstore
+no_appstore:
+	rm -rf $(no_appstore_build_directory) $(no_appstore_unsigned_dir) $(no_appstore_artifact_directory)
+	install -d $(no_appstore_unsigned_dir)/$(app_name)
+	cp -r \
+	"appinfo" \
+	"css" \
+	"img" \
+	"l10n" \
+	"lib" \
+	"templates" \
+	"vendor" \
+	$(no_appstore_unsigned_dir)/$(app_name)
+
+	# remove composer binaries, those aren't needed
+	rm -rf $(no_appstore_unsigned_dir)/$(app_name)/vendor/bin
+	# the App Store doesn't like .git
+	rm -rf $(no_appstore_unsigned_dir)/$(app_name)/vendor/arthurhoaro/favicon/.git
+	# remove large test files
+	rm -rf $(no_appstore_unsigned_dir)/$(app_name)/vendor/fivefilters/readability.php/test
+
+	install "COPYING" $(no_appstore_unsigned_dir)/$(app_name)
+	install "AUTHORS.md" $(no_appstore_unsigned_dir)/$(app_name)
+	install "CHANGELOG.md" $(no_appstore_unsigned_dir)/$(app_name)
+	install "INSTALL.md" $(no_appstore_unsigned_dir)/$(app_name)
+	
+	#remove stray .htaccess files since they are filtered by nextcloud
+	find $(no_appstore_unsigned_dir) -name .htaccess -exec rm {} \;
+
+	# on macOS there is no option "--parents" for the "cp" command
+	mkdir -p $(no_appstore_unsigned_dir)/$(app_name)/js/build $(no_appstore_unsigned_dir)/$(app_name)/js/admin
+	cp js/build/app.min.js $(no_appstore_unsigned_dir)/$(app_name)/js/build
+	cp js/admin/Admin.js $(no_appstore_unsigned_dir)/$(app_name)/js/admin
+
+	## export the key and cert to a file
+	#mkdir -p $(cert_dir)
+	#php ./bin/tools/file_from_env.php "app_private_key" "$(cert_dir)/$(app_name).key"
+	#php ./bin/tools/file_from_env.php "app_public_crt" "$(cert_dir)/$(app_name).crt"
+
+	#@if [ -f $(cert_dir)/$(app_name).key ]; then \
+	#	echo "Signing app files…"; \
+	#	php ../../occ integrity:sign-app \
+	#		--privateKey=$(cert_dir)/$(app_name).key\
+	#		--certificate=$(cert_dir)/$(app_name).crt\
+	#		--path=$(appstore_sign_dir)/$(app_name); \
+	#	echo "Signing app files ... done"; \
+	#fi
+	mkdir -p $(no_appstore_artifact_directory)
+	tar -czf $(no_appstore_package_name).tar.gz -C $(no_appstore_unsigned_dir) $(app_name)
+
 
 
 .PHONY: js-test
