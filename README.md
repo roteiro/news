@@ -6,7 +6,8 @@ This fork enables you to use the awesome [Nextcloud News App](https://github.com
 
 Use this fork at your own risk and only if you know what you are doing!
 
-Installation of the app needs to be done manually, detailed instructions will follow.
+Installation of the app needs to be done manually, the procedure is described in [INSTALL.md](./INSTALL.md).
+
 The idea was taken from [PR #1337](https://github.com/nextcloud/news/pull/1337). A detailed discussion on the reasoning for removing 32-bit support from the original app can be found [here](https://github.com/nextcloud/news/issues/1423).
 
 The remainder of this README is identical to the README of the original News app.
